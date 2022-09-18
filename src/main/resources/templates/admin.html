@@ -92,7 +92,7 @@
                                 <td th:text="${userFromList.getEmail()}"/>
                                 <td th:text="${userFromList.getStringRoles()}"/>
 <!--                                <td><a class="btn btn-info" th:href="@{/admin/edit(id=${user.id})}" role="button">Edit</a></td>-->
-                                <td><button type="button" class="btn btn-info" data-bs-toggle="modal" th:data-bs-target="'#m'+ ${userFromList.getId()}">Edit</button></td>
+                                <td><a type="button"  class="btn btn-info" data-bs-toggle="modal" th:data-bs-target="'#m'+ ${userFromList.getId()}">Edit</a></td>
 
                                 <td><a class="btn btn-danger" th:href="@{/admin/delete(id=${userFromList.id})}" role="button">Delete</a></td>
                             </tr>
@@ -178,8 +178,8 @@
             </div>
 
             <!-- Modal Edit -->
-            <div th:each="user, itemStat : *{allUsers}">
-            <div class="modal fade" th:id="'m' + ${user.getId()}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div th:each="userFrom, itemStat : *{allUsers}">
+            <div class="modal fade" th:id="'m' + ${userFrom.getId()}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -190,7 +190,7 @@
 
                             <form class="text-center" th:method="POST" th:action="@{/updateuser/{id}(id=${user.getId()})}" th:object="${user}">
                                 <div class="form-group">
-                                    <label for="id" class="form-label" th:text="${user.getId()}"><strong>ID</strong></label>
+                                    <label for="id" class="form-label" th:text="${userFrom.getId()}"><strong>ID</strong></label>
                                     <input type="text" class="form-control" th:field="*{id}" th:selected="${allUsers[__${itemStat.index}__].getId()}" id="id" aria-describedby="emailHelp">
                                 </div>
 
