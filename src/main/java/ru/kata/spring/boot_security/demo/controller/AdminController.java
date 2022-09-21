@@ -67,11 +67,15 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/delete")
-    public String deleteUser(@RequestParam(value = "id", required = false) Long id) {
+    @PostMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") Long id) {
         userServiceImp.deleteUser(id);
         return "redirect:/admin";
     }
+//    public String deleteUser(@RequestParam(value = "id", required = false) Long id) {
+//        userServiceImp.deleteUser(id);
+//        return "redirect:/admin";
+//    }
 
     @GetMapping("/edit")
     public String editUser(@RequestParam(value = "id", required = false) Long id, Model model) {
@@ -82,9 +86,9 @@ public class AdminController {
     @PostMapping("/updateuser/{id}")
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
         System.out.println(user);
-        if (user.getRole().equals("ADMIN")) {
+        if (user.getRole() != null && user.getRole().equals("ADMIN")) {
             user.addRoleForm(new Role(1L, "ROLE_ADMIN"));
-        } else if (user.getRole().equals("USER")) {
+        } else if (user.getRole() != null && user.getRole().equals("USER")) {
             user.addRoleForm(new Role(2L, "ROLE_USER"));
         }
         userServiceImp.updateUser(id, user);
