@@ -15,9 +15,6 @@
 <!--    <p class="navbar-brand" sec:authentication="name">VALUE</p>-->
     <p class="text-light">with roles: &nbsp;</p>
     <p class="text-light" th:text="${usersAuth.getStringRoles()}"/>
-<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--        <span class="navbar-toggler-icon"></span>-->
-<!--    </button>-->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
@@ -26,17 +23,6 @@
         </ul>
     </div>
 </nav>
-
-<!--<div class="container-fluid bg-dark" id="navbarHeader">-->
-<!--    <div class="row">-->
-<!--        <div class="col-sm-8 col-md-7 py-4">-->
-<!--            <h4 class="text-white">About with roles: ADMIN</h4>-->
-<!--        </div>-->
-<!--        <div class="col-sm-4 offset-md-1 py-4">-->
-<!--            <a href="../examples/cheatsheet-rtl/" class="ms-auto link-light" hreflang="ar">RTL cheatsheet</a>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 
 <div class="container-fluid" id="main">
     <div class="row justify-content">
@@ -52,18 +38,9 @@
             <br>
             <p class="h1">User information-page</p>
             <br>
-
-<!--            <nav>-->
-<!--                <div class="nav nav-tabs" id="nav-tab" role="tablist">-->
-<!--                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Users table</button>-->
-<!--                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">New user</button>-->
-<!--                </div>-->
-<!--            </nav>-->
-
             <div class="col">
                 <p class="h3">About user</p>
             </div>
-
             <div class="col bg-light">
                 <table class="table table-striped">
                     <thead>
@@ -74,7 +51,6 @@
                             <th scope="col">Age</th>
                             <th scope="col">Email</th>
                             <th scope="col">Role</th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -89,7 +65,6 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
 </div>

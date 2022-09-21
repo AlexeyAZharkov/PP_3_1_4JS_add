@@ -25,13 +25,13 @@ public class AdminController {
         return "admin/admin";
     }
 
-    @GetMapping(value = "/set3users")
-    public String set3users(ModelMap model) {
-//        userServiceImp.addUser(new User("Alex", "Zh", "axx"));
-//        userServiceImp.addUser(new User("Alex1", "Zh1", "ax11x"));
-//        userServiceImp.addUser(new User("Alex2", "Zh2", "ax22x"));
-        return "redirect:/admin/users";
-    }
+//    @GetMapping(value = "/set3users")
+//    public String set3users(ModelMap model) {
+////        userServiceImp.addUser(new User("Alex", "Zh", "axx"));
+////        userServiceImp.addUser(new User("Alex1", "Zh1", "ax11x"));
+////        userServiceImp.addUser(new User("Alex2", "Zh2", "ax22x"));
+//        return "redirect:/admin/users";
+//    }
 
     @GetMapping(value = "/admin")
     public String userPage(@ModelAttribute("user") User user, @AuthenticationPrincipal User userAuth, Model model) {
@@ -87,8 +87,6 @@ public class AdminController {
 
     @PostMapping("/updateuser/{id}")
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
-//        System.out.println("roles =   " + userServiceImp.getUserById(id).getStringRoles());
-//        System.out.println("role = " + userServiceImp.getUserById(id));
         if (user.getRole() != null && user.getRole().equals("ADMIN")) {
             user.addRoleForm(new Role(1L, "ROLE_ADMIN"));
         } else if (user.getRole() != null && user.getRole().equals("USER")) {
