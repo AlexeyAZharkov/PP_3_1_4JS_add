@@ -71,15 +71,11 @@ public class User implements UserDetails {
    }
 
    public String getStringRoles() {
-//      StringBuilder st = new StringBuilder();
       List<String> list = new ArrayList<>();
       for (Role n : roles) {
-
          list.add(n.getName().replace("ROLE_", ""));
-//         st.append(n.getName().replace("ROLE_", "")).append(" ");
       }
-      String st = String.join(" ", list);
-      return st;
+      return String.join(" ", list);
    }
 
    public void setRoles(Set<Role> roles) {

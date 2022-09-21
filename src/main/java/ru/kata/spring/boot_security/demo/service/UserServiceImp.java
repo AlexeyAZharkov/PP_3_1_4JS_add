@@ -65,14 +65,4 @@ public class UserServiceImp implements UserDetailsService {
       }
       return user.get();
    }
-
-//   @Override
-//   @Transactional(readOnly = true)
-//   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//      Optional<User> user = Optional.ofNullable(userDaoImp.getUserByName(username));
-//      if (user.isEmpty()) {
-//         throw new UsernameNotFoundException("User not found");
-//      }
-//      return user.get();
-//   }
 }
