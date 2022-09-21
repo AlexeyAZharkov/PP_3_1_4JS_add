@@ -6,9 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -73,11 +71,15 @@ public class User implements UserDetails {
    }
 
    public String getStringRoles() {
-      StringBuilder st = new StringBuilder();
+//      StringBuilder st = new StringBuilder();
+      List<String> list = new ArrayList<>();
       for (Role n : roles) {
-         st.append(n.getName().replace("ROLE_", "")).append(" ");
+
+         list.add(n.getName().replace("ROLE_", ""));
+//         st.append(n.getName().replace("ROLE_", "")).append(" ");
       }
-      return st.toString();
+      String st = String.join(" ", list);
+      return st;
    }
 
    public void setRoles(Set<Role> roles) {

@@ -213,7 +213,7 @@
 
                                 <div class="form-group">
                                     <label for="role1" class="form-label"><strong>Role</strong></label>
-                                    <select multiple class="form-control" size="2" th:name="role" aria-label="Default select example" id="role1">
+                                    <select multiple class="form-control" size="2" th:name="role" th:value="${userFrom.getRole()}" aria-label="Default select example" id="role1">
 
                                         <!--                                            <option selected>Open this select menu</option>-->
                                         <option value="ADMIN">ADMIN</option>
@@ -287,7 +287,7 @@
 
                                     <div class="form-group">
                                         <label for="role2" class="form-label"><strong>Role</strong></label>
-                                        <select multiple class="form-control" size="2" th:name="role" aria-label="Default select example" id="role2" disabled>
+                                        <select multiple class="form-control" size="2" th:name="role"  aria-label="Default select example" id="role2" disabled>
 
                                             <!--                                            <option selected>Open this select menu</option>-->
                                             <option value="ADMIN">ADMIN</option>

@@ -9,6 +9,8 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserServiceImp;
 
+import java.lang.reflect.Array;
+
 @Controller
 @RequestMapping("")
 public class AdminController {
@@ -85,10 +87,16 @@ public class AdminController {
 
     @PostMapping("/updateuser/{id}")
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
-        System.out.println(user);
+//        System.out.println("roles =   " + userServiceImp.getUserById(id).getStringRoles());
+//        System.out.println("role = " + userServiceImp.getUserById(id));
         if (user.getRole() != null && user.getRole().equals("ADMIN")) {
             user.addRoleForm(new Role(1L, "ROLE_ADMIN"));
         } else if (user.getRole() != null && user.getRole().equals("USER")) {
+            user.addRoleForm(new Role(2L, "ROLE_USER"));
+        }
+        if (user.getRole() == null && userServiceImp.getUserById(id).getStringRoles().equals("ADMIN")) {
+            user.addRoleForm(new Role(1L, "ROLE_ADMIN"));
+        } else if (user.getRole() == null && userServiceImp.getUserById(id).getStringRoles().equals("USER")) {
             user.addRoleForm(new Role(2L, "ROLE_USER"));
         }
         userServiceImp.updateUser(id, user);
