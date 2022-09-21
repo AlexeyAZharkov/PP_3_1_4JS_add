@@ -94,7 +94,7 @@
 <!--                                <td><a class="btn btn-info" th:href="@{/admin/edit(id=${user.id})}" role="button">Edit</a></td>-->
                                 <td><a type="button"  class="btn btn-info" data-bs-toggle="modal" th:data-bs-target="'#m'+ ${userFromList.getId()}">Edit</a></td>
 
-                                <td><a class="btn btn-danger" th:href="@{/admin/delete(id=${userFromList.id})}" role="button">Delete</a></td>
+                                <td><a class="btn btn-danger" th:href="@{/delete(id=${userFromList.id})}" role="button">Delete</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -158,21 +158,6 @@
                     </div>
 
 
-<!--                    <form th:method="POST" th:action="@{/admin/new}" th:object="${user}">-->
-<!--                        <label for="name">Enter name: </label>-->
-<!--                        <input type="text" th:field="*{firstName}" id="name"/>-->
-<!--                        <label for="last_name">Enter Last Name: </label>-->
-<!--                        <input type="text" th:field="*{lastName}" id="last_name"/>-->
-<!--                        <label for="password">Enter Password: </label>-->
-<!--                        <input type="text" th:field="*{password}" id="password"/>-->
-<!--                        <label for="age1">Enter Password: </label>-->
-<!--                        <input type="text" th:field="*{age}" id="age1"/>-->
-<!--                        <label for="email1">Enter Password: </label>-->
-<!--                        <input type="text" th:field="*{email}" id="email1"/>-->
-<!--                        <br/>-->
-<!--                        <input type="submit" value="Create!"/>-->
-<!--                    </form>-->
-
                 </div>
 
             </div>
@@ -188,61 +173,140 @@
                         </div>
                         <div class="modal-body">
 
-                            <form class="text-center" th:method="POST" th:action="@{/updateuser/{id}(id=${user.getId()})}" th:object="${user}">
+                            <form class="text-center" th:method="POST" th:action="@{/updateuser/{id}(id=${userFrom.getId()})}" th:object="${user}">
                                 <div class="form-group">
                                     <label for="id" class="form-label" th:text="${userFrom.getId()}"><strong>ID</strong></label>
-                                    <input type="text" class="form-control" th:field="*{id}" th:selected="${allUsers[__${itemStat.index}__].getId()}" id="id" aria-describedby="emailHelp">
+<!--                                    <input type="text" class="form-control" th:field="*{id}" th:selected="${allUsers[__${itemStat.index}__].getId()}" id="id" aria-describedby="emailHelp">-->
+                                    <input type="text" class="form-control" th:name="id" th:value="${userFrom.getId()}" id="id" aria-describedby="emailHelp" disabled>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="first-name1" class="form-label"><strong>First name</strong></label>
-                                    <input type="text" class="form-control" th:field="*{firstName}" th:value="${user.getId()}" id="first-name1" aria-describedby="emailHelp">
+<!--                                    <input type="text" class="form-control" th:field="*{firstName}" th:value="${user.getId()}" id="first-name1" aria-describedby="emailHelp">-->
+                                    <input type="text" class="form-control" th:name="firstName" th:value="${userFrom.getFirstName()}" id="first-name1" aria-describedby="emailHelp">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="last-name1" class="form-label"><strong>Last name</strong></label>
-                                    <input type="text" class="form-control" th:field="*{lastName}" id="last-name1" aria-describedby="emailHelp">
+<!--                                    <input type="text" class="form-control" th:field="*{lastName}" id="last-name1" aria-describedby="emailHelp">-->
+                                    <input type="text" class="form-control" th:name="lastName" th:value="${userFrom.getLastName()}" id="last-name1" aria-describedby="emailHelp">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="age1" class="form-label"><strong>Age</strong></label>
-                                    <input type="number" class="form-control" th:field="*{age}" id="age1" aria-describedby="emailHelp">
-                                    <!--                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+<!--                                    <input type="number" class="form-control" th:field="*{age}" id="age1" aria-describedby="emailHelp">-->
+                                    <input type="number" class="form-control" th:name="age" th:value="${userFrom.getAge()}" id="age1" aria-describedby="emailHelp">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="email1" class="form-label"><strong>Email</strong></label>
-                                    <input type="email" class="form-control" th:field="*{email}" id="email1" aria-describedby="emailHelp">
-                                    <!--                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
+<!--                                    <input type="email" class="form-control" th:field="*{email}" id="email1" aria-describedby="emailHelp">-->
+                                    <input type="email" class="form-control" th:name="email" th:value="${userFrom.getEmail()}" id="email1" aria-describedby="emailHelp">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="exampleInputPassword11" class="form-label"><strong>Password</strong></label>
-                                    <input type="password" class="form-control" th:field="*{password}" id="exampleInputPassword11">
+<!--                                    <input type="password" class="form-control" th:field="*{password}" id="exampleInputPassword11">-->
+                                    <input type="password" class="form-control" th:name="password" th:value="${userFrom.getPassword()}" id="exampleInputPassword11">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="role1" class="form-label"><strong>Role</strong></label>
-                                    <select multiple class="form-control" size="2" th:field="*{role}" aria-label="Default select example" id="role1">
+                                    <select multiple class="form-control" size="2" th:name="role" aria-label="Default select example" id="role1">
+
                                         <!--                                            <option selected>Open this select menu</option>-->
                                         <option value="ADMIN">ADMIN</option>
                                         <option value="USER">USER</option>
                                     </select>
                                 </div>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Edit</button>
 
-<!--                                <button type="submit" class="btn btn-success">Add new user</button>-->
                             </form>
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Edit</button>
+<!--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                            <button type="submit" class="btn btn-primary">Edit</button>-->
                         </div>
                     </div>
                 </div>
             </div>
 
             </div>
+
+            <!-- Modal DEL -->
+            <div th:each="userFrom, itemStat : *{allUsers}">
+                <div class="modal fade" th:id="'m' + ${userFrom.getId()}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabelDel">Delete user</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <form class="text-center" th:method="POST" th:action="@{/delete/{id}(id=${userFrom.getId()})}" th:object="${user}">
+                                    <div class="form-group">
+                                        <label for="id2" class="form-label" th:text="${userFrom.getId()}"><strong>ID</strong></label>
+                                        <!--                                    <input type="text" class="form-control" th:field="*{id}" th:selected="${allUsers[__${itemStat.index}__].getId()}" id="id" aria-describedby="emailHelp">-->
+                                        <input type="text" class="form-control" th:name="id" th:value="${userFrom.getId()}" id="id2" aria-describedby="emailHelp" disabled>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="first-name2" class="form-label"><strong>First name</strong></label>
+                                        <!--                                    <input type="text" class="form-control" th:field="*{firstName}" th:value="${user.getId()}" id="first-name1" aria-describedby="emailHelp">-->
+                                        <input type="text" class="form-control" th:name="firstName" th:value="${userFrom.getFirstName()}" id="first-name2" aria-describedby="emailHelp" disabled>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="last-name2" class="form-label"><strong>Last name</strong></label>
+                                        <!--                                    <input type="text" class="form-control" th:field="*{lastName}" id="last-name1" aria-describedby="emailHelp">-->
+                                        <input type="text" class="form-control" th:name="lastName" th:value="${userFrom.getLastName()}" id="last-name2" aria-describedby="emailHelp">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="age2" class="form-label"><strong>Age</strong></label>
+                                        <!--                                    <input type="number" class="form-control" th:field="*{age}" id="age1" aria-describedby="emailHelp">-->
+                                        <input type="number" class="form-control" th:name="age" th:value="${userFrom.getAge()}" id="age2" aria-describedby="emailHelp">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email2" class="form-label"><strong>Email</strong></label>
+                                        <!--                                    <input type="email" class="form-control" th:field="*{email}" id="email1" aria-describedby="emailHelp">-->
+                                        <input type="email" class="form-control" th:name="email" th:value="${userFrom.getEmail()}" id="email2" aria-describedby="emailHelp">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword2" class="form-label"><strong>Password</strong></label>
+                                        <!--                                    <input type="password" class="form-control" th:field="*{password}" id="exampleInputPassword11">-->
+                                        <input type="password" class="form-control" th:name="password" th:value="${userFrom.getPassword()}" id="exampleInputPassword2">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="role2" class="form-label"><strong>Role</strong></label>
+                                        <select multiple class="form-control" size="2" th:name="role" aria-label="Default select example" id="role2">
+
+                                            <!--                                            <option selected>Open this select menu</option>-->
+                                            <option value="ADMIN">ADMIN</option>
+                                            <option value="USER">USER</option>
+                                        </select>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
         </div>
     </div>
 </div>

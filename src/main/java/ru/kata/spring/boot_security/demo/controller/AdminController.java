@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserServiceImp;
 
@@ -35,12 +36,12 @@ public class AdminController {
         model.addAttribute("allUsers", userServiceImp.listUsers());
         model.addAttribute("usersAuth", userAuth);
         model.addAttribute("userIsAdmin", userAuth.getStringRoles().contains("ADMIN"));
-        for (User userInList : userServiceImp.listUsers()) {
-            long id = userInList.getId();
-            model.addAttribute("user" + id, userServiceImp.getUserById(id));
-        }
-
-        System.out.println(userServiceImp.listUsers());
+//        for (User userInList : userServiceImp.listUsers()) {
+//            long id = userInList.getId();
+//            model.addAttribute("user" + id, userServiceImp.getUserById(id));
+//        }
+//
+//        System.out.println(userServiceImp.listUsers());
         return "admin";
     }
 
@@ -80,7 +81,13 @@ public class AdminController {
 
     @PostMapping("/updateuser/{id}")
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+        System.out.println(user);
+        if (user.getRole().equals("ADMIN")) {
+            user.addRoleForm(new Role(1L, "ROLE_ADMIN"));
+        } else if (user.getRole().equals("USER")) {
+            user.addRoleForm(new Role(2L, "ROLE_USER"));
+        }
         userServiceImp.updateUser(id, user);
-        return "redirect:/admin/users";
+        return "redirect:/admin";
     }
 }
