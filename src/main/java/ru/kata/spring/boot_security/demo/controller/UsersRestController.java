@@ -1,11 +1,9 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserServiceImp;
 
@@ -30,7 +28,29 @@ public class UsersRestController {
 	@GetMapping(value = "/users/{id}")
 	public User getUserById(@PathVariable("id") Long id) {
 		User userById = userServiceImp.getUserById(id);
-		System.out.println(userById);
 		return userById;
+	}
+
+	@PostMapping("/users")
+	public User addNewUser(@RequestBody User newUser) {
+		userServiceImp.addUser(newUser);
+		return newUser;
+	}
+
+	@PutMapping("/users")
+	public User updateUser(@RequestBody User updatedUser) {
+		if (updatedUser.getRole().equals("ADMIN")) {
+			updatedUser.addRoleForm(new Role(1L, "ROLE_ADMIN"));
+		} else if (updatedUser.getRole().equals("USER")) {
+			updatedUser.addRoleForm(new Role(2L, "ROLE_USER"));
+		}
+		userServiceImp.updateUser(updatedUser.getId(), updatedUser);
+		return updatedUser;
+	}
+
+	@DeleteMapping(value = "/users/{id}")
+	public String deleteUserById(@PathVariable("id") Long id) {
+		userServiceImp.deleteUser(id);
+		return "User with id = " + id + " was deleted !";
 	}
 }
