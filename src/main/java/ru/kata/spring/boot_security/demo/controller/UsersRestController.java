@@ -50,6 +50,7 @@ public class UsersRestController {
 
 	@DeleteMapping(value = "/users/{id}")
 	public String deleteUserById(@PathVariable("id") Long id) {
+		System.out.println(id);
 		userServiceImp.deleteUser(id);
 		return "User with id = " + id + " was deleted !";
 	}

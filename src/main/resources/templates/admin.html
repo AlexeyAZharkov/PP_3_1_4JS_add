@@ -204,7 +204,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <form class="text-center">
+                            <form class="formBtnDelete">
                                 <div class="formDelete">
 
                                 </div>
@@ -213,9 +213,7 @@
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </div>
-
                             </form>
-
                         </div>
                         <div class="modal-footer">
                         </div>
@@ -227,8 +225,9 @@
 </div>
 
 <script>
-    const userList = document.querySelector('.users-table')
-    const deleteForm = document.querySelector('.formDelete')
+    const userList = document.querySelector('.users-table');
+    const deleteForm = document.querySelector('.formDelete');
+    let delUserFrm = document.querySelector('.formBtnDelete');
     let url = 'http://localhost:8080/api/users';
     let output = '';
     fetch(url)
@@ -313,15 +312,34 @@
                 </div>
         `
             });
+        delUserById(userId);
 
+        // if(delButton) {
+        //     fetch(`${url}/${userId}`, {
+        //         method: 'DELETE',
+        //     })
+        // }
+    });
 
+    function delUserById(id) {
 
-        if(delButton) {
-            fetch(`${url}/${userId}`, {
+        delUserFrm.onsubmit = function(e) {
+            fetch(`${url}/${id}`, {
                 method: 'DELETE',
             })
         }
-    });
+
+        // delUserFrm.onsubmit = ('submit', (e) => {
+        //     e.preventDefault();
+        //     console.log(id);
+        //     fetch(`${url}/${id}`, {
+        //         method: 'DELETE',
+        //     })
+        // });
+    }
+
+
+
 
     // deleteForm.innerHTML = `
     //         <div class="form-group">
