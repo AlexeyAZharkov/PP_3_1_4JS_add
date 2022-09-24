@@ -274,8 +274,8 @@
                     <td>${user.age}</td>
                     <td>${user.email}</td>
                     <td>${user.role}</td>
-                    <td><a type="button"  class="btn btn-info" data-bs-toggle="modal" data-bs-target="#m" + '1'>Edit</a></td>
-                    <td><a type="button"  class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#del" + ${user.id}>Delete</a></td>
+                    <td><a type="button" class="btn btn-info" data-bs-toggle="modal" id="editUser" data-userid=${user.id} data-bs-target=${`#m${user.id}`}>Edit</a></td>
+                    <td><a type="button" class="btn btn-danger" data-bs-toggle="modal" id="delUser" data-userid=${user.id} data-bs-target=${`#del${user.id}`}>Delete</a></td>
                     </tr>
                 `;
             });
@@ -305,6 +305,17 @@
                 role: newUserFrm.userRole.value,
             })
         })
+    })
+
+    userList.addEventListener('click', (e) => {
+        let delButton = e.target.id == 'delUser';
+        let editButton = e.target.id == 'editUser';
+        let userId = e.target.dataset.userid;
+        if(delButton) {
+            fetch(`${url}/${userId}`, {
+                method: 'DELETE',
+            })
+        }
     })
 
 </script>
