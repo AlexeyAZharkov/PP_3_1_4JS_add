@@ -195,64 +195,32 @@
             </div>
 
             <!-- Modal DEL -->
-            <div th:each="userFrom: *{allUsers}">
-                <div class="modal fade" th:id="'del' + ${userFrom.getId()}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabelDel">Delete user</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
+            <div class="modal fade" id="del" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabelDel">Delete user</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
 
-                                <form class="text-center" th:method="POST" th:action="@{/delete/{id}(id=${userFrom.getId()})}" th:object="${user}">
-                                    <div class="form-group">
-                                        <label for="id2" class="form-label"><strong>ID</strong></label>
-                                        <input type="text" class="form-control" th:name="id" th:value="${userFrom.getId()}" id="id2" disabled>
-                                    </div>
+                            <form class="text-center">
+                                <div class="formDelete">
 
-                                    <div class="form-group">
-                                        <label for="first-name2" class="form-label"><strong>First name</strong></label>
-                                        <input type="text" class="form-control" th:name="firstName" th:value="${userFrom.getFirstName()}" id="first-name2" disabled>
-                                    </div>
+                                </div>
+                                <hr>
+                                <div class="text-right">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </div>
 
-                                    <div class="form-group">
-                                        <label for="last-name2" class="form-label"><strong>Last name</strong></label>
-                                        <input type="text" class="form-control" th:name="lastName" th:value="${userFrom.getLastName()}" id="last-name2" disabled>
-                                    </div>
+                            </form>
 
-                                    <div class="form-group">
-                                        <label for="age2" class="form-label"><strong>Age</strong></label>
-                                        <input type="number" class="form-control" th:name="age" th:value="${userFrom.getAge()}" id="age2" disabled>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="email2" class="form-label"><strong>Email</strong></label>
-                                        <input type="email" class="form-control" th:name="email" th:value="${userFrom.getEmail()}" id="email2"  disabled>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="role2" class="form-label"><strong>Role</strong></label>
-                                        <select multiple class="form-control" size="2" th:name="role"  aria-label="Default select example" id="role2" disabled>
-                                            <option value="ADMIN">ADMIN</option>
-                                            <option value="USER">USER</option>
-                                        </select>
-                                    </div>
-                                    <hr>
-                                    <div class="text-right">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </div>
-
-                                </form>
-
-                            </div>
-                            <div class="modal-footer">
-                            </div>
+                        </div>
+                        <div class="modal-footer">
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -260,6 +228,7 @@
 
 <script>
     const userList = document.querySelector('.users-table')
+    const deleteForm = document.querySelector('.formDelete')
     let url = 'http://localhost:8080/api/users';
     let output = '';
     fetch(url)
@@ -275,7 +244,7 @@
                     <td>${user.email}</td>
                     <td>${user.role}</td>
                     <td><a type="button" class="btn btn-info" data-bs-toggle="modal" id="editUser" data-userid=${user.id} data-bs-target=${`#m${user.id}`}>Edit</a></td>
-                    <td><a type="button" class="btn btn-danger" data-bs-toggle="modal" id="delUser" data-userid=${user.id} data-bs-target=${`#del${user.id}`}>Delete</a></td>
+                    <td><a type="button" class="btn btn-danger" data-bs-toggle="modal" id="delUser" data-uFN=${user.firstName} data-userid=${user.id} data-bs-target="#del">Delete</a></td>
                     </tr>
                 `;
             });
@@ -311,12 +280,78 @@
         let delButton = e.target.id == 'delUser';
         let editButton = e.target.id == 'editUser';
         let userId = e.target.dataset.userid;
+        fetch(`${url}/${userId}`)
+            .then(response => response.json())
+            .then(user => {
+                deleteForm.innerHTML = `
+            <div class="form-group">
+                    <label for="id2" class="form-label"><strong>ID</strong></label>
+                    <input type="text" class="form-control" value=${user.id} id="id2" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="first-name2" class="form-label"><strong>First name</strong></label>
+                    <input type="text" class="form-control" value=${user.firstName} id="first-name2" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="last-name2" class="form-label"><strong>Last name</strong></label>
+                    <input type="text" class="form-control" value=${user.lastName} id="last-name2" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="age2" class="form-label"><strong>Age</strong></label>
+                    <input type="number" class="form-control" value=${user.age} id="age2" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="email2" class="form-label"><strong>Email</strong></label>
+                    <input type="email" class="form-control" value=${user.email} id="email2"  disabled>
+                </div>
+                <div class="form-group">
+                    <label for="role2" class="form-label"><strong>Role</strong></label>
+                    <select multiple class="form-control" size="2" aria-label="Default select example" id="role2" disabled>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="USER">USER</option>
+                    </select>
+                </div>
+        `
+            });
+
+
+
         if(delButton) {
             fetch(`${url}/${userId}`, {
                 method: 'DELETE',
             })
         }
-    })
+    });
+
+    // deleteForm.innerHTML = `
+    //         <div class="form-group">
+    //                 <label for="id2" class="form-label"><strong>ID</strong></label>
+    //                 <input type="text" class="form-control" value="1" id="id2" disabled>
+    //             </div>
+    //             <div class="form-group">
+    //                 <label for="first-name2" class="form-label"><strong>First name</strong></label>
+    //                 <input type="text" class="form-control" value="1" id="first-name2" disabled>
+    //             </div>
+    //             <div class="form-group">
+    //                 <label for="last-name2" class="form-label"><strong>Last name</strong></label>
+    //                 <input type="text" class="form-control" value="1" id="last-name2" disabled>
+    //             </div>
+    //             <div class="form-group">
+    //                 <label for="age2" class="form-label"><strong>Age</strong></label>
+    //                 <input type="number" class="form-control" value="1" id="age2" disabled>
+    //             </div>
+    //             <div class="form-group">
+    //                 <label for="email2" class="form-label"><strong>Email</strong></label>
+    //                 <input type="email" class="form-control" value="1" id="email2"  disabled>
+    //             </div>
+    //             <div class="form-group">
+    //                 <label for="role2" class="form-label"><strong>Role</strong></label>
+    //                 <select multiple class="form-control" size="2" aria-label="Default select example" id="role2" disabled>
+    //                     <option value="ADMIN">ADMIN</option>
+    //                     <option value="USER">USER</option>
+    //                 </select>
+    //             </div>
+    //     `
 
 </script>
 
