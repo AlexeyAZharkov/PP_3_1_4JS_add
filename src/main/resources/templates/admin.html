@@ -241,8 +241,14 @@
                 password: newUserFrm.userPas.value,
                 role: newUserFrm.userRole.value,
             })
-        })
-    })
+        });
+        document.getElementById('nav-profile').setAttribute('class', 'tab-pane fade');
+        document.getElementById('nav-home').setAttribute('class', 'tab-pane fade show active');
+
+        // document.getElementById('nav-profile').removeClass('active');
+        // document.getElementById('nav-home').addClass('active');
+
+    });
 
     userList.addEventListener('click', (e) => {
         let delButton = e.target.id == 'delUser';
@@ -343,7 +349,8 @@
                 method: 'DELETE',
             });
             // delModal.modal('hide');
-            delModal.style.display = "none";
+            // delModal.style.display = "none";
+            delModal.hidden = true;
         });
     }
 
