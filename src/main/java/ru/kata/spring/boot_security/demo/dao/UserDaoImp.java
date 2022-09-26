@@ -5,6 +5,7 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -61,6 +62,17 @@ public class UserDaoImp implements UserDao {
         }
         return null;
     }
+
+//    @Override
+//    public List<User> listUsers() {
+//        List<User> users = entityManager.createQuery("select u from User u", User.class).getResultList();
+//        List<User> result = new ArrayList<>();
+//        for (User user : users) {
+//            user.add
+//            return
+//        }
+//        return entityManager.createQuery("select u from User u", User.class).getResultList();
+//    }
 
     @Override
     public List<User> listUsers() {

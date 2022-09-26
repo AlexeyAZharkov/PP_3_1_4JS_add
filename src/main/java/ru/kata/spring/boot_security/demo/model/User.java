@@ -34,7 +34,8 @@ public class User implements UserDetails {
    @Column(name = "password")
    private String password;
 
-   @Transient
+//   @Transient
+   @Column(name = "role")
    private String role;
 
    @ManyToMany(fetch = FetchType.LAZY)
@@ -54,7 +55,7 @@ public class User implements UserDetails {
       this.age = age;
       this.email = email;
       this.password = password;
-      this.role = role;
+      this.role = getStringRoles();
    }
 
    public void addRole(Role role) {
