@@ -10,7 +10,69 @@
     <title>All users</title>
 </head>
 <body>
+<!--User Page-->
+<div id="user">
+    <nav class="navbar bg-dark navbar-expand-lg navbar-dark">
+        <p class="navbar-brand" th:text="${usersAuth.getEmail()}"/>
+        <p class="text-light">with roles: &nbsp;</p>
+        <p class="text-light" th:text="${usersAuth.getStringRoles()}"/>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
+    <div class="container-fluid" id="main1">
+        <div class="row justify-content">
+            <div class="col-2 p-0">
+                <br>
+                <nav class="nav flex-column nav-pills nav-justified">
+                    <a th:if="${userIsAdmin}" class="nav-link nav-block" aria-current="page" href="admin">Admin</a>
+                    <a th:if="${userIsAdmin}" class="nav-link active nav-block" href="user">User</a>
+                    <a th:if="${not userIsAdmin}" class="nav-link active nav-block" href="user">User</a>
+                </nav>
+            </div>
+            <div class="col-10 bg-light">
+                <br>
+                <p class="h1">User information-page</p>
+                <br>
+                <div class="col">
+                    <p class="h3">About user</p>
+                </div>
+                <div class="col bg-light">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td th:text="${usersAuth.getId()}"/>
+                            <td th:text="${usersAuth.getFirstName()}"/>
+                            <td th:text="${usersAuth.getLastName()}"/>
+                            <td th:text="${usersAuth.getAge()}"/>
+                            <td th:text="${usersAuth.getEmail()}"/>
+                            <td th:text="${usersAuth.getStringRoles()}"/>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--Admin page-->
+<div id="admin">
 <nav class="navbar bg-dark navbar-expand-lg navbar-dark">
     <p class="navbar-brand" th:text="${usersAuth.getEmail()}"/>
     <p class="text-light">with roles: &nbsp;</p>
@@ -30,7 +92,7 @@
             <br>
             <nav class="nav flex-column nav-pills nav-justified">
                 <a th:if="${userIsAdmin}" class="nav-link active nav-block" aria-current="page" href="#">Admin</a>
-                <a th:if="${userIsAdmin}" class="nav-link nav-block" href="user">User</a>
+                <a th:if="${userIsAdmin}" class="nav-link nav-block" id="userSelectBTN" href="user">User</a>
                 <a th:if="${not userIsAdmin}" class="nav-link active nav-block" href="user">User</a>
             </nav>
         </div>
@@ -182,6 +244,7 @@
     </div>
 </div>
 
+</div>
 <script src="main.js">
 <!--<script>-->
     const userList = document.querySelector('.users-table');
