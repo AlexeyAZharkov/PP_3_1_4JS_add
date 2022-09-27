@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>
+<!--    <script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>All users</title>
 </head>
 <body>
@@ -66,6 +67,8 @@
                             </thead>
                             <tbody class="users-table" >
                             <tr >
+<!--                            <tbody class="users-table" >-->
+<!--                            <tr >-->
 <!--                            <tr class="users-table" th:each="userFromList: ${allUsers}" >-->
 <!--                                <td th:text="${userFromList.getId()}"/>-->
 <!--                                <td th:text="${userFromList.getFirstName()}"/>-->
@@ -248,9 +251,9 @@
                 role: newUserFrm.userRole.value,
             })
         });
+        showAllUsers();
         document.getElementById('nav-profile').setAttribute('class', 'tab-pane fade');
         document.getElementById('nav-home').setAttribute('class', 'tab-pane fade show active');
-        showAllUsers();
 
         // document.getElementById('nav-profile').removeClass('active');
         // document.getElementById('nav-home').addClass('active');
@@ -261,6 +264,7 @@
         let delButton = e.target.id == 'delUser';
         let editButton = e.target.id == 'editUser';
         let userId = e.target.dataset.userid;
+        let userRole = e.target.dataset.userrole;
 
         if (delButton) {
             fetch(`${url}/${userId}`)
@@ -324,7 +328,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword11" class="form-label"><strong>Password</strong></label>
-                    <input name="userEpass" type="password" class="form-control" th:name="password" value=${user.password} id="exampleInputPassword11">
+                    <input name="userEpass" type="password" class="form-control" value=${user.password} id="exampleInputPassword11">
                 </div>
                 <div class="form-group">
                     <label for="role1" class="form-label"><strong>Role</strong></label>
@@ -335,7 +339,7 @@
                 </div>
         `
                 });
-            editUser(userId);
+            editUser(userId, userRole);
         }
 
     });
@@ -378,11 +382,16 @@
         });
     }
 
-    function editUser(id) {
+    function editUser(id, role) {
+        let roleToSend = role;
+        console.log(roleToSend);
 
         editUserFrm.addEventListener('submit', (e) => {
             e.preventDefault();
-            console.log(id);
+            if (editUserFrm.userErole.value != '') {
+                roleToSend = editUserFrm.userErole.value;
+            }
+            console.log(roleToSend);
             fetch(url, {
                 method: 'PUT',
                 headers: {
@@ -395,7 +404,7 @@
                     age: editUserFrm.userEAge.value,
                     email: editUserFrm.userEemail.value,
                     password: editUserFrm.userEpass.value,
-                    role: editUserFrm.userErole.value,
+                    role: roleToSend,
                 })
             })
             document.getElementById('btnEditHide').click();
@@ -408,7 +417,8 @@
     }
 
     function showAllUsers() {
-        let output = '';
+        // let output = `<tbody class="users-table" >`;
+        let output = ``;
         fetch(url)
             .then(response => response.json())
             .then(users => {
@@ -421,45 +431,18 @@
                     <td>${user.age}</td>
                     <td>${user.email}</td>
                     <td>${user.role}</td>
-                    <td><a type="button" class="btn btn-info" data-bs-toggle="modal" id="editUser" data-userid=${user.id} data-bs-target="#edit">Edit</a></td>
+                    <td><a type="button" class="btn btn-info" data-bs-toggle="modal" id="editUser" data-userrole=${user.role} data-userid=${user.id} data-bs-target="#edit">Edit</a></td>
                     <td><a type="button" class="btn btn-danger" data-bs-toggle="modal" id="delUser" data-uFN=${user.firstName} data-userid=${user.id} data-bs-target="#del">Delete</a></td>
                     </tr>
                 `;
                 });
+                // output += `</tbody>`;
+                // userList.remove();
                 userList.innerHTML = output;
                 // $('.users-table').html(output);
             });
     }
 
-    // deleteForm.innerHTML = `
-    //         <div class="form-group">
-    //                 <label for="id2" class="form-label"><strong>ID</strong></label>
-    //                 <input type="text" class="form-control" value="1" id="id2" disabled>
-    //             </div>
-    //             <div class="form-group">
-    //                 <label for="first-name2" class="form-label"><strong>First name</strong></label>
-    //                 <input type="text" class="form-control" value="1" id="first-name2" disabled>
-    //             </div>
-    //             <div class="form-group">
-    //                 <label for="last-name2" class="form-label"><strong>Last name</strong></label>
-    //                 <input type="text" class="form-control" value="1" id="last-name2" disabled>
-    //             </div>
-    //             <div class="form-group">
-    //                 <label for="age2" class="form-label"><strong>Age</strong></label>
-    //                 <input type="number" class="form-control" value="1" id="age2" disabled>
-    //             </div>
-    //             <div class="form-group">
-    //                 <label for="email2" class="form-label"><strong>Email</strong></label>
-    //                 <input type="email" class="form-control" value="1" id="email2"  disabled>
-    //             </div>
-    //             <div class="form-group">
-    //                 <label for="role2" class="form-label"><strong>Role</strong></label>
-    //                 <select multiple class="form-control" size="2" aria-label="Default select example" id="role2" disabled>
-    //                     <option value="ADMIN">ADMIN</option>
-    //                     <option value="USER">USER</option>
-    //                 </select>
-    //             </div>
-    //     `
 
 </script>
 

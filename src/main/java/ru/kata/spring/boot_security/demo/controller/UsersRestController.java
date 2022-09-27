@@ -39,11 +39,28 @@ public class UsersRestController {
 
 	@PutMapping("/users")
 	public User updateUser(@RequestBody User updatedUser) {
-		if (updatedUser.getRole().equals("ADMIN")) {
+//		if (updatedUser.getRole().equals("ADMIN")) {
+//			updatedUser.addRoleForm(new Role(1L, "ROLE_ADMIN"));
+//		} else if (updatedUser.getRole().equals("USER")) {
+//			updatedUser.addRoleForm(new Role(2L, "ROLE_USER"));
+//		}
+		System.out.println(updatedUser.getRole());
+//		System.out.println(updatedUser.getStringRoles());
+		if (updatedUser.getRole() != null && updatedUser.getRole().equals("ADMIN")) {
 			updatedUser.addRoleForm(new Role(1L, "ROLE_ADMIN"));
-		} else if (updatedUser.getRole().equals("USER")) {
+			updatedUser.setRole("ADMIN");
+		} else if (updatedUser.getRole() != null && updatedUser.getRole().equals("USER")) {
 			updatedUser.addRoleForm(new Role(2L, "ROLE_USER"));
+			updatedUser.setRole("USER");
 		}
+		if (updatedUser.getRole() == null && updatedUser.getStringRoles().equals("ADMIN")) {
+			updatedUser.addRoleForm(new Role(1L, "ROLE_ADMIN"));
+			updatedUser.setRole("ADMIN");
+		} else if (updatedUser.getRole() == null && updatedUser.getStringRoles().equals("USER")) {
+			updatedUser.addRoleForm(new Role(2L, "ROLE_USER"));
+			updatedUser.setRole("USER");
+		}
+
 		userServiceImp.updateUser(updatedUser.getId(), updatedUser);
 		return updatedUser;
 	}

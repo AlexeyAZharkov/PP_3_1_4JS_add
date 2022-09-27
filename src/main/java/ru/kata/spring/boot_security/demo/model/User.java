@@ -55,7 +55,7 @@ public class User implements UserDetails {
       this.age = age;
       this.email = email;
       this.password = password;
-      this.role = getStringRoles();
+      this.role = role;
    }
 
    public void addRole(Role role) {
