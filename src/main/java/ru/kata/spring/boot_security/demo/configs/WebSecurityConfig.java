@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/")
                 .loginProcessingUrl("/process_login")
                 .defaultSuccessUrl("/admin")
                 .usernameParameter("email")
@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/")
                 .permitAll();
     }
 
