@@ -67,17 +67,7 @@
                             </thead>
                             <tbody class="users-table" >
                             <tr >
-<!--                            <tbody class="users-table" >-->
-<!--                            <tr >-->
-<!--                            <tr class="users-table" th:each="userFromList: ${allUsers}" >-->
-<!--                                <td th:text="${userFromList.getId()}"/>-->
-<!--                                <td th:text="${userFromList.getFirstName()}"/>-->
-<!--                                <td th:text="${userFromList.getLastName()}"/>-->
-<!--                                <td th:text="${userFromList.getAge()}"/>-->
-<!--                                <td th:text="${userFromList.getEmail()}"/>-->
-<!--                                <td th:text="${userFromList.getStringRoles()}"/>-->
-<!--                                <td><a type="button"  class="btn btn-info" data-bs-toggle="modal" th:data-bs-target="'#m'+ ${userFromList.getId()}">Edit</a></td>-->
-<!--                                <td><a type="button"  class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#del'+ ${userFromList.getId()}">Delete</a></td>-->
+
                             </tr>
                             </tbody>
                         </table>
@@ -201,6 +191,7 @@
 
     let delUserFrm = document.querySelector('.formBtnDelete');
     let editUserFrm = document.querySelector('.formBtnEdit');
+    let test = '1';
 
     // console.dir(document.getElementById('del'));
 
@@ -231,13 +222,11 @@
 
     let newUserFrm = document.forms.reg;
     let userFirstName = newUserFrm.userFN;
-    // userFirstName.onblur = function (event) {
-    //     console.log("потеря фокуса");
-    // };
-    newUserFrm.addEventListener('submit', (e) => {
+
+    newUserFrm.addEventListener('submit', async (e) => {
         e.preventDefault();
         console.log(newUserFrm.userFN.value)
-        fetch(url, {
+        await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -254,10 +243,6 @@
         showAllUsers();
         document.getElementById('nav-profile').setAttribute('class', 'tab-pane fade');
         document.getElementById('nav-home').setAttribute('class', 'tab-pane fade show active');
-
-        // document.getElementById('nav-profile').removeClass('active');
-        // document.getElementById('nav-home').addClass('active');
-
     });
 
     userList.addEventListener('click', (e) => {
@@ -341,26 +326,21 @@
                 });
             editUser(userId, userRole);
         }
-
     });
 
     function delUserById(id) {
 
-        // delUserFrm.onsubmit = function(e) {
-        //     console.log('delete action');
-        //     fetch(`${url}/${id}`, {
-        //         method: 'DELETE',
-        //     })
-        // }
-
-        delUserFrm.addEventListener('submit', (e) => {
+        delUserFrm.addEventListener('submit', async (e) => {
             // console.dir(document.getElementById('del'));
             e.preventDefault();
             console.log(id);
-            fetch(`${url}/${id}`, {
+            await fetch(`${url}/${id}`, {
                 method: 'DELETE',
             });
-
+            const actionWithDelay = async () => {
+                await delay(2000);
+            }
+            showAllUsers();
             document.getElementById('btnDelHide').click();
 
             // console.dir(document.body);
@@ -384,15 +364,15 @@
 
     function editUser(id, role) {
         let roleToSend = role;
-        console.log(roleToSend);
+        // console.log(roleToSend);
 
-        editUserFrm.addEventListener('submit', (e) => {
+        editUserFrm.addEventListener('submit', async (e) => {
             e.preventDefault();
             if (editUserFrm.userErole.value != '') {
                 roleToSend = editUserFrm.userErole.value;
             }
-            console.log(roleToSend);
-            fetch(url, {
+            // console.log(roleToSend);
+            await fetch(url, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -407,17 +387,17 @@
                     role: roleToSend,
                 })
             })
+            showAllUsers();
             document.getElementById('btnEditHide').click();
         });
     }
 
-    function closeModal() {
-        document.getElementById("del").style.display = "none";
-        // document.querySelector(".delModal").style.display = "none";
-    }
+    // function closeModal() {
+    //     document.getElementById("del").style.display = "none";
+    //     // document.querySelector(".delModal").style.display = "none";
+    // }
 
     function showAllUsers() {
-        // let output = `<tbody class="users-table" >`;
         let output = ``;
         fetch(url)
             .then(response => response.json())
@@ -436,10 +416,10 @@
                     </tr>
                 `;
                 });
-                // output += `</tbody>`;
-                // userList.remove();
                 userList.innerHTML = output;
                 // $('.users-table').html(output);
+                // $(".users-table").replaceWith(output);
+                // $(this).replaceWith(function (index, content)
             });
     }
 
