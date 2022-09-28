@@ -3,30 +3,74 @@ const deleteForm = document.querySelector('.formDelete');
 const editForm = document.querySelector('.formEdit');
 const delModal = document.getElementById('del');
 const editModal = document.getElementById('edit');
+const loginPage = document.getElementById('login');
+const adminPage = document.getElementById('admin');
+const userPage = document.getElementById('user');
+let url = 'http://localhost:8080/api/users';
 // const delModal = document.querySelector(".delModal")
 
 let delUserFrm = document.querySelector('.formBtnDelete');
 let editUserFrm = document.querySelector('.formBtnEdit');
+let x = 11;
 
-document.getElementById('user').hidden = true;
+// loginPage.hidden = true;
+userPage.hidden = true;
+loginPage.hidden = true;
+// adminPage.hidden = true;
+document.forms.f.onsubmit = function(e) {
+    x +=1
+    e.preventDefault();
+    document.getElementById('login').hidden = true;
+    userPage.hidden = false;
+    document.getElementById('admin').hidden = true;
+    console.log(e);
+    document.title = 'User page';
+    getUserId();
+    showAllUsers();
+    // document.getElementById('loginBTN').click();
+    // alert("отправка формы");
+};
+
+async function getUserId() {
+    await fetch(`${url}/userAu`)
+        .then(response => response.json())
+        .then(user => {
+            console.log(user);
+            });
+        console.log(user);
+
+}
+
+// document.getElementById('loginBTN').onclick = function (e) {
+//     // e.preventDefault();
+//     adminPage.hidden = false;
+//     loginPage.hidden = true;
+//     document.title = 'Admin panel';
+// };
+
+if (document.getElementById('userAuth').textContent === 'USER') {
+    adminPage.hidden = true;
+    userPage.hidden = false;
+    document.title = 'User page';
+};
 
 document.getElementById('userSelectBTN').onclick = function (e) {
     e.preventDefault();
-    document.getElementById('admin').hidden = true;
-    document.getElementById('user').hidden = false;
+    adminPage.hidden = true;
+    userPage.hidden = false;
     document.title = 'User page';
 }
 
 document.getElementById('adminSelectBTN').onclick = function (e) {
     e.preventDefault();
-    document.getElementById('admin').hidden = false;
-    document.getElementById('user').hidden = true;
+    adminPage.hidden = false;
+    userPage.hidden = true;
     document.title = 'Admin panel';
 }
 
 // console.dir(document.getElementById('del'));
 
-let url = 'http://localhost:8080/api/users';
+
 
 showAllUsers();
 
@@ -53,6 +97,7 @@ newUserFrm.addEventListener('submit', async (e) => {
     showAllUsers();
     document.getElementById('nav-profile').setAttribute('class', 'tab-pane fade');
     document.getElementById('nav-home').setAttribute('class', 'tab-pane fade show active');
+    e.target.reset();
 });
 
 userList.addEventListener('click', (e) => {

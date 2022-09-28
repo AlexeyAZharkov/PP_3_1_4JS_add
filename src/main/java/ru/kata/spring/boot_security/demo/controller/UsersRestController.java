@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -25,6 +26,20 @@ public class UsersRestController {
 		model.addAttribute("usersAuth", userAuth);
 		return allUsers;
 	}
+
+	@GetMapping(value = "/users/userAu")
+	public ResponseEntity<User> exampleJson(@AuthenticationPrincipal User userAuth) {
+		System.out.println(userAuth);
+		return ResponseEntity.ok(userAuth);
+	}
+
+//	public User getUserA(@ModelAttribute("user") User user, @AuthenticationPrincipal User userAuth, Model model) {
+////		List<User> allUsers = userServiceImp.listUsers();
+////		model.addAttribute("usersAuth", userAuth);
+//		System.out.println(userAuth);
+//		return userAuth;
+//	}
+
 
 //	public String userPage(@ModelAttribute("user") User user, @AuthenticationPrincipal User userAuth, Model model) {
 //		model.addAttribute("allUsers", userServiceImp.listUsers());
