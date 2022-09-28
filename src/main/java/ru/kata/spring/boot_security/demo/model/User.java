@@ -34,8 +34,8 @@ public class User implements UserDetails {
    @Column(name = "password")
    private String password;
 
-//   @Transient
-   @Column(name = "role")
+   @Transient
+//   @Column(name = "role")
    private String role;
 
    @ManyToMany(fetch = FetchType.LAZY)

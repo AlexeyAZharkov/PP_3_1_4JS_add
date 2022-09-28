@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <!--    <script type="text/javascript" src="/js/jquery-3.1.1.min.js"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>All users</title>
+    <title>Admin panel</title>
 </head>
 <body>
 <!--User Page-->
@@ -30,7 +30,7 @@
             <div class="col-2 p-0">
                 <br>
                 <nav class="nav flex-column nav-pills nav-justified">
-                    <a th:if="${userIsAdmin}" class="nav-link nav-block" aria-current="page" href="admin">Admin</a>
+                    <a th:if="${userIsAdmin}" class="nav-link nav-block" id="adminSelectBTN" aria-current="page" href="admin">Admin</a>
                     <a th:if="${userIsAdmin}" class="nav-link active nav-block" href="user">User</a>
                     <a th:if="${not userIsAdmin}" class="nav-link active nav-block" href="user">User</a>
                 </nav>

@@ -14,14 +14,6 @@ document.getElementById('userSelectBTN').onclick = function (e) {
     e.preventDefault();
     document.getElementById('admin').hidden = true;
     document.getElementById('user').hidden = false;
-    document.title = 'User page';
-}
-
-document.getElementById('adminSelectBTN').onclick = function (e) {
-    e.preventDefault();
-    document.getElementById('admin').hidden = false;
-    document.getElementById('user').hidden = true;
-    document.title = 'Admin panel';
 }
 
 // console.dir(document.getElementById('del'));
@@ -29,6 +21,27 @@ document.getElementById('adminSelectBTN').onclick = function (e) {
 let url = 'http://localhost:8080/api/users';
 
 showAllUsers();
+
+// let output = '';
+// fetch(url)
+//     .then(response => response.json())
+//     .then(users => {
+//         users.forEach(user => {
+//             output += `
+//                 <tr>
+//                 <td>${user.id}</td>
+//                 <td>${user.firstName}</td>
+//                 <td>${user.lastName}</td>
+//                 <td>${user.age}</td>
+//                 <td>${user.email}</td>
+//                 <td>${user.role}</td>
+//                 <td><a type="button" class="btn btn-info" data-bs-toggle="modal" id="editUser" data-userid=${user.id} data-bs-target="#edit">Edit</a></td>
+//                 <td><a type="button" class="btn btn-danger" data-bs-toggle="modal" id="delUser" data-uFN=${user.firstName} data-userid=${user.id} data-bs-target="#del">Delete</a></td>
+//                 </tr>
+//             `;
+//         });
+//         userList.innerHTML = output;
+//     });
 
 let newUserFrm = document.forms.reg;
 let userFirstName = newUserFrm.userFN;
@@ -220,8 +233,8 @@ function showAllUsers() {
                     <td>${user.lastName}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>
-                    <td>${user.stringRoles}</td>
-                    <td><a type="button" class="btn btn-info" data-bs-toggle="modal" id="editUser" data-userrole=${user.stringRoles} data-userid=${user.id} data-bs-target="#edit">Edit</a></td>
+                    <td>${user.role}</td>
+                    <td><a type="button" class="btn btn-info" data-bs-toggle="modal" id="editUser" data-userrole=${user.role} data-userid=${user.id} data-bs-target="#edit">Edit</a></td>
                     <td><a type="button" class="btn btn-danger" data-bs-toggle="modal" id="delUser" data-uFN=${user.firstName} data-userid=${user.id} data-bs-target="#del">Delete</a></td>
                     </tr>
                 `;

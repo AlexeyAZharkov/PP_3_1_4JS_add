@@ -20,10 +20,15 @@ public class UsersRestController {
 	}
 
 	@GetMapping(value = "/users")
-	public List<User> showAllUsers() {
+	public List<User> showAllUsers(Model model, @AuthenticationPrincipal User userAuth) {
 		List<User> allUsers = userServiceImp.listUsers();
+		model.addAttribute("usersAuth", userAuth);
 		return allUsers;
 	}
+
+//	public String userPage(@ModelAttribute("user") User user, @AuthenticationPrincipal User userAuth, Model model) {
+//		model.addAttribute("allUsers", userServiceImp.listUsers());
+//		model.addAttribute("usersAuth", userAuth);
 
 	@GetMapping(value = "/users/{id}")
 	public User getUserById(@PathVariable("id") Long id) {
