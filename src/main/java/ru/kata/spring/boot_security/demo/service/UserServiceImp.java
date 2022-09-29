@@ -51,7 +51,6 @@ public class UserServiceImp implements UserDetailsService {
    }
 
    @Transactional(readOnly = true)
-//   @PreAuthorize("hasRole('ROLE_ADMIN')")
    public List<User> listUsers() {
       return userDaoImp.listUsers();
    }

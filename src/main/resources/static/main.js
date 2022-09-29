@@ -2,52 +2,15 @@ const userList = document.querySelector('.users-table');
 const userData = document.querySelector('.user-table');
 const deleteForm = document.querySelector('.formDelete');
 const editForm = document.querySelector('.formEdit');
-// const delModal = document.getElementById('del');
-// const editModal = document.getElementById('edit');
 const loginPage = document.getElementById('login');
 const adminPage = document.getElementById('admin');
 const userPage = document.getElementById('user');
 let url = 'http://localhost:8080/api/users';
-// const delModal = document.querySelector(".delModal")
-
 let delUserFrm = document.querySelector('.formBtnDelete');
 let editUserFrm = document.querySelector('.formBtnEdit');
-// let x = 11;
 
-// loginPage.hidden = true;
 userPage.hidden = true;
 loginPage.hidden = true;
-// adminPage.hidden = true;
-// document.forms.f.onsubmit = function(e) {
-//     // x +=1
-//     e.preventDefault();
-//     // document.getElementById('login').hidden = true;
-//     // userPage.hidden = false;
-//     // document.getElementById('admin').hidden = true;
-//     // console.log(e);
-//     // document.title = 'User page';
-//     // getUserId();
-//     // showAllUsers();
-//
-//     // document.getElementById('loginBTN').click();
-//     // alert("отправка формы");
-// };
-
-// async function getUserId() {
-//     await fetch(`${url}/userAu`)
-//         .then(response => response.json())
-//         .then(user => {
-//             console.log(user);
-//             });
-//         console.log(user);
-// }
-
-// document.getElementById('loginBTN').onclick = function (e) {
-//     // e.preventDefault();
-//     adminPage.hidden = false;
-//     loginPage.hidden = true;
-//     document.title = 'Admin panel';
-// };
 
 if (document.getElementById('userAuth').textContent === 'USER') {
     showUserData();
@@ -73,12 +36,9 @@ document.getElementById('adminSelectBTN').onclick = function (e) {
     document.title = 'Admin panel';
 }
 
-// console.dir(document.getElementById('del'));
-
 showAllUsers();
 
 let newUserFrm = document.forms.reg;
-// let userFirstName = newUserFrm.userFN;
 
 newUserFrm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -181,57 +141,31 @@ userList.addEventListener('click', (e) => {
                         <option value="ADMIN">ADMIN</option>
                         <option value="USER">USER</option>
                     </select>
-                </div>
-        `
+                </div>       `
             });
         editUser(userId, userRole);
     }
 });
 
 function delUserById(id) {
-
     delUserFrm.addEventListener('submit', async (e) => {
-        // console.dir(document.getElementById('del'));
         e.preventDefault();
         console.log(id);
         await fetch(`${url}/${id}`, {
             method: 'DELETE',
         });
-        // const actionWithDelay = async () => {
-        //     await delay(2000);
-        // }
         showAllUsers();
         document.getElementById('btnDelHide').click();
-
-        // console.dir(document.body);
-        // document.body.removeAttribute('class');
-        //
-        // document.getElementById('del').removeAttribute('style');
-        // document.getElementById('del').removeAttribute('aria-modal');
-        // document.getElementById('del').removeAttribute('role');
-        // document.getElementById('del').removeAttribute('modal-backdrop');
-        // delModal.hidden = true;
-        //
-        // document.getElementById('del').setAttribute('aria-hidden', 'true');
-        // document.getElementById('del').setAttribute('class', 'modal fade');
-        //
-        // document.getElementById('nav-profile').setAttribute('class', 'tab-pane fade');
-        // document.getElementById('nav-home').setAttribute('class', 'tab-pane fade show active');
-        // document.getElementById('del').setAttribute('display', '');
-        // delModal.hidden = true;  style="display: block;"
     });
 }
 
 function editUser(id, role) {
     let roleToSend = role;
-    // console.log(roleToSend);
-
     editUserFrm.addEventListener('submit', async (e) => {
         e.preventDefault();
         if (editUserFrm.userErole.value !== '') {
             roleToSend = editUserFrm.userErole.value;
         }
-        // console.log(roleToSend);
         await fetch(url, {
             method: 'PUT',
             headers: {
@@ -251,11 +185,6 @@ function editUser(id, role) {
         document.getElementById('btnEditHide').click();
     });
 }
-
-// function closeModal() {
-//     document.getElementById("del").style.display = "none";
-//     // document.querySelector(".delModal").style.display = "none";
-// }
 
 function showAllUsers() {
     let output = ``;
@@ -277,9 +206,6 @@ function showAllUsers() {
                 `;
             });
             userList.innerHTML = output;
-            // $('.users-table').html(output);
-            // $(".users-table").replaceWith(output);
-            // $(this).replaceWith(function (index, content)
         });
 }
 
@@ -299,8 +225,4 @@ function showUserData() {
                     </tr>
                 `;
             });
-            // userData.innerHTML = output;
-            // $('.users-table').html(output);
-            // $(".users-table").replaceWith(output);
-            // $(this).replaceWith(function (index, content)
 }

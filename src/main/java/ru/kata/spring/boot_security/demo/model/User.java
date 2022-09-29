@@ -35,11 +35,10 @@ public class User implements UserDetails {
    private String password;
 
    @Transient
-//   @Column(name = "role")
    private String role;
 
    @ManyToMany(fetch = FetchType.LAZY)
-   @Fetch(FetchMode.JOIN)   // Здесь, наверное, не правильно решил...
+   @Fetch(FetchMode.JOIN)
    @JoinTable(
            name = "users_roles",
            joinColumns = @JoinColumn(name = "user_id"),

@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -27,24 +26,6 @@ public class UsersRestController {
 		return allUsers;
 	}
 
-//	@GetMapping(value = "/users/userAu")
-//	public ResponseEntity<User> exampleJson(@AuthenticationPrincipal User userAuth) {
-//		System.out.println(userAuth);
-//		return ResponseEntity.ok(userAuth);
-//	}
-
-//	public User getUserA(@ModelAttribute("user") User user, @AuthenticationPrincipal User userAuth, Model model) {
-////		List<User> allUsers = userServiceImp.listUsers();
-////		model.addAttribute("usersAuth", userAuth);
-//		System.out.println(userAuth);
-//		return userAuth;
-//	}
-
-
-//	public String userPage(@ModelAttribute("user") User user, @AuthenticationPrincipal User userAuth, Model model) {
-//		model.addAttribute("allUsers", userServiceImp.listUsers());
-//		model.addAttribute("usersAuth", userAuth);
-
 	@GetMapping(value = "/users/{id}")
 	public User getUserById(@PathVariable("id") Long id) {
 		User userById = userServiceImp.getUserById(id);
@@ -59,13 +40,6 @@ public class UsersRestController {
 
 	@PutMapping("/users")
 	public User updateUser(@RequestBody User updatedUser) {
-//		if (updatedUser.getRole().equals("ADMIN")) {
-//			updatedUser.addRoleForm(new Role(1L, "ROLE_ADMIN"));
-//		} else if (updatedUser.getRole().equals("USER")) {
-//			updatedUser.addRoleForm(new Role(2L, "ROLE_USER"));
-//		}
-//		System.out.println(updatedUser.getRole());
-//		System.out.println(updatedUser.getStringRoles());
 		if (updatedUser.getRole() != null && updatedUser.getRole().equals("ADMIN")) {
 			updatedUser.addRoleForm(new Role(1L, "ROLE_ADMIN"));
 			updatedUser.setRole("ADMIN");
