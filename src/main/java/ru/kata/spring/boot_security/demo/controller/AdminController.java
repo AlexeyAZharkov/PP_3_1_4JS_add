@@ -23,7 +23,7 @@ public class AdminController {
         model.addAttribute("allUsers", userServiceImp.listUsers());
         model.addAttribute("usersAuth", userAuth);
         model.addAttribute("userIsAdmin", userAuth.getStringRoles().contains("ADMIN"));
-        System.out.println("из админ  -- " + userAuth);
+//        System.out.println("из админ  -- " + userAuth);
         return "admin";
     }
 

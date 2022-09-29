@@ -1,4 +1,5 @@
 const userList = document.querySelector('.users-table');
+const userData = document.querySelector('.user-table');
 const deleteForm = document.querySelector('.formDelete');
 const editForm = document.querySelector('.formEdit');
 const delModal = document.getElementById('del');
@@ -11,35 +12,35 @@ let url = 'http://localhost:8080/api/users';
 
 let delUserFrm = document.querySelector('.formBtnDelete');
 let editUserFrm = document.querySelector('.formBtnEdit');
-let x = 11;
+// let x = 11;
 
 // loginPage.hidden = true;
 userPage.hidden = true;
 loginPage.hidden = true;
 // adminPage.hidden = true;
 document.forms.f.onsubmit = function(e) {
-    x +=1
+    // x +=1
     e.preventDefault();
-    document.getElementById('login').hidden = true;
-    userPage.hidden = false;
-    document.getElementById('admin').hidden = true;
-    console.log(e);
-    document.title = 'User page';
-    getUserId();
-    showAllUsers();
+    // document.getElementById('login').hidden = true;
+    // userPage.hidden = false;
+    // document.getElementById('admin').hidden = true;
+    // console.log(e);
+    // document.title = 'User page';
+    // getUserId();
+    // showAllUsers();
+
     // document.getElementById('loginBTN').click();
     // alert("отправка формы");
 };
 
-async function getUserId() {
-    await fetch(`${url}/userAu`)
-        .then(response => response.json())
-        .then(user => {
-            console.log(user);
-            });
-        console.log(user);
-
-}
+// async function getUserId() {
+//     await fetch(`${url}/userAu`)
+//         .then(response => response.json())
+//         .then(user => {
+//             console.log(user);
+//             });
+//         console.log(user);
+// }
 
 // document.getElementById('loginBTN').onclick = function (e) {
 //     // e.preventDefault();
@@ -49,13 +50,17 @@ async function getUserId() {
 // };
 
 if (document.getElementById('userAuth').textContent === 'USER') {
+    showUserData();
     adminPage.hidden = true;
     userPage.hidden = false;
     document.title = 'User page';
-};
+} else if (document.getElementById('userAuth').textContent !== '') {
+    document.title = 'Admin panel';
+}
 
 document.getElementById('userSelectBTN').onclick = function (e) {
     e.preventDefault();
+    showUserData();
     adminPage.hidden = true;
     userPage.hidden = false;
     document.title = 'User page';
@@ -97,6 +102,8 @@ newUserFrm.addEventListener('submit', async (e) => {
     showAllUsers();
     document.getElementById('nav-profile').setAttribute('class', 'tab-pane fade');
     document.getElementById('nav-home').setAttribute('class', 'tab-pane fade show active');
+    document.getElementById('nav-profile-tab').setAttribute('class', 'nav-link');
+    document.getElementById('nav-home-tab').setAttribute('class', 'nav-link active');
     e.target.reset();
 });
 
@@ -276,4 +283,27 @@ function showAllUsers() {
             // $(".users-table").replaceWith(output);
             // $(this).replaceWith(function (index, content)
         });
+}
+
+function showUserData() {
+    let id = userData.getAttribute('user-id');
+    console.log(id);
+    fetch(`${url}/${id}`)
+        .then(response => response.json())
+        .then(user => {
+            userData.innerHTML = `
+                    <tr>
+                    <td>${user.id}</td>
+                    <td>${user.firstName}</td>
+                    <td>${user.lastName}</td>
+                    <td>${user.age}</td>
+                    <td>${user.email}</td>
+                    <td>${user.stringRoles}</td>         
+                    </tr>
+                `;
+            });
+            // userData.innerHTML = output;
+            // $('.users-table').html(output);
+            // $(".users-table").replaceWith(output);
+            // $(this).replaceWith(function (index, content)
 }

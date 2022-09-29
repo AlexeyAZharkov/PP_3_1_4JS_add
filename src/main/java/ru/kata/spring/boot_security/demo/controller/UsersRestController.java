@@ -27,11 +27,11 @@ public class UsersRestController {
 		return allUsers;
 	}
 
-	@GetMapping(value = "/users/userAu")
-	public ResponseEntity<User> exampleJson(@AuthenticationPrincipal User userAuth) {
-		System.out.println(userAuth);
-		return ResponseEntity.ok(userAuth);
-	}
+//	@GetMapping(value = "/users/userAu")
+//	public ResponseEntity<User> exampleJson(@AuthenticationPrincipal User userAuth) {
+//		System.out.println(userAuth);
+//		return ResponseEntity.ok(userAuth);
+//	}
 
 //	public User getUserA(@ModelAttribute("user") User user, @AuthenticationPrincipal User userAuth, Model model) {
 ////		List<User> allUsers = userServiceImp.listUsers();

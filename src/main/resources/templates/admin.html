@@ -64,7 +64,7 @@
                 <nav class="nav flex-column nav-pills nav-justified">
                     <a th:if="${userIsAdmin}" class="nav-link nav-block" id="adminSelectBTN" aria-current="page" href="admin">Admin</a>
                     <a th:if="${userIsAdmin}" class="nav-link active nav-block" href="user">User</a>
-                    <a th:if="${not userIsAdmin}" class="nav-link active nav-block" href="user">User</a>
+                    <a th:if="${not userIsAdmin}" class="nav-link active nav-block" >User</a>
                 </nav>
             </div>
             <div class="col-10 bg-light">
@@ -86,14 +86,14 @@
                             <th scope="col">Role</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="user-table" th:user-id="${usersAuth.id}">
                         <tr>
-                            <td th:text="${usersAuth.getId()}"/>
-                            <td th:text="${usersAuth.getFirstName()}"/>
-                            <td th:text="${usersAuth.getLastName()}"/>
-                            <td th:text="${usersAuth.getAge()}"/>
-                            <td th:text="${usersAuth.getEmail()}"/>
-                            <td th:text="${usersAuth.getStringRoles()}"/>
+<!--                            <td th:text="${usersAuth.getId()}"/>-->
+<!--                            <td th:text="${usersAuth.getFirstName()}"/>-->
+<!--                            <td th:text="${usersAuth.getLastName()}"/>-->
+<!--                            <td th:text="${usersAuth.getAge()}"/>-->
+<!--                            <td th:text="${usersAuth.getEmail()}"/>-->
+<!--                            <td th:text="${usersAuth.getStringRoles()}"/>-->
                         </tr>
                         </tbody>
                     </table>
@@ -161,7 +161,7 @@
                             </tr>
                             </thead>
                             <tbody class="users-table" >
-                            <tr >
+                            <tr>
 
                             </tr>
                             </tbody>
