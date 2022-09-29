@@ -64,7 +64,7 @@ public class UsersRestController {
 //		} else if (updatedUser.getRole().equals("USER")) {
 //			updatedUser.addRoleForm(new Role(2L, "ROLE_USER"));
 //		}
-		System.out.println(updatedUser.getRole());
+//		System.out.println(updatedUser.getRole());
 //		System.out.println(updatedUser.getStringRoles());
 		if (updatedUser.getRole() != null && updatedUser.getRole().equals("ADMIN")) {
 			updatedUser.addRoleForm(new Role(1L, "ROLE_ADMIN"));

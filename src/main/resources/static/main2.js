@@ -2,8 +2,8 @@ const userList = document.querySelector('.users-table');
 const userData = document.querySelector('.user-table');
 const deleteForm = document.querySelector('.formDelete');
 const editForm = document.querySelector('.formEdit');
-// const delModal = document.getElementById('del');
-// const editModal = document.getElementById('edit');
+const delModal = document.getElementById('del');
+const editModal = document.getElementById('edit');
 const loginPage = document.getElementById('login');
 const adminPage = document.getElementById('admin');
 const userPage = document.getElementById('user');
@@ -75,10 +75,12 @@ document.getElementById('adminSelectBTN').onclick = function (e) {
 
 // console.dir(document.getElementById('del'));
 
+
+
 showAllUsers();
 
 let newUserFrm = document.forms.reg;
-// let userFirstName = newUserFrm.userFN;
+let userFirstName = newUserFrm.userFN;
 
 newUserFrm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -106,8 +108,8 @@ newUserFrm.addEventListener('submit', async (e) => {
 });
 
 userList.addEventListener('click', (e) => {
-    let delButton = e.target.id === 'delUser';
-    let editButton = e.target.id === 'editUser';
+    let delButton = e.target.id == 'delUser';
+    let editButton = e.target.id == 'editUser';
     let userId = e.target.dataset.userid;
     let userRole = e.target.dataset.userrole;
 
@@ -197,9 +199,9 @@ function delUserById(id) {
         await fetch(`${url}/${id}`, {
             method: 'DELETE',
         });
-        // const actionWithDelay = async () => {
-        //     await delay(2000);
-        // }
+        const actionWithDelay = async () => {
+            await delay(2000);
+        }
         showAllUsers();
         document.getElementById('btnDelHide').click();
 
@@ -228,7 +230,7 @@ function editUser(id, role) {
 
     editUserFrm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        if (editUserFrm.userErole.value !== '') {
+        if (editUserFrm.userErole.value != '') {
             roleToSend = editUserFrm.userErole.value;
         }
         // console.log(roleToSend);
@@ -285,6 +287,7 @@ function showAllUsers() {
 
 function showUserData() {
     let id = userData.getAttribute('user-id');
+    console.log(id);
     fetch(`${url}/${id}`)
         .then(response => response.json())
         .then(user => {

@@ -9,10 +9,10 @@ import ru.kata.spring.boot_security.demo.model.User;
 @Controller
 public class UsersController {
 
-	@GetMapping(value = "/user")
-	public String userPage(@AuthenticationPrincipal User userAuth, Model model) {
-		model.addAttribute("usersAuth", userAuth);
-		model.addAttribute("userIsAdmin", userAuth.getStringRoles().contains("ADMIN"));
-		return "user";
-	}
+//	@GetMapping(value = "/user")
+//	public String userPage(@AuthenticationPrincipal User userAuth, Model model) {
+//		model.addAttribute("usersAuth", userAuth);
+//		model.addAttribute("userIsAdmin", userAuth.getStringRoles().contains("ADMIN"));
+//		return "user";
+//	}
 }

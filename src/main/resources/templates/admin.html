@@ -63,7 +63,7 @@
                 <br>
                 <nav class="nav flex-column nav-pills nav-justified">
                     <a th:if="${userIsAdmin}" class="nav-link nav-block" id="adminSelectBTN" aria-current="page" href="admin">Admin</a>
-                    <a th:if="${userIsAdmin}" class="nav-link active nav-block" href="user">User</a>
+                    <a th:if="${userIsAdmin}" class="nav-link active nav-block" >User</a>
                     <a th:if="${not userIsAdmin}" class="nav-link active nav-block" >User</a>
                 </nav>
             </div>
@@ -123,9 +123,9 @@
         <div class="col-2 p-0">
             <br>
             <nav class="nav flex-column nav-pills nav-justified">
-                <a th:if="${userIsAdmin}" class="nav-link active nav-block" aria-current="page" href="#">Admin</a>
-                <a th:if="${userIsAdmin}" class="nav-link nav-block" id="userSelectBTN" href="user">User</a>
-                <a th:if="${not userIsAdmin}" class="nav-link active nav-block" href="user">User</a>
+                <a th:if="${userIsAdmin}" class="nav-link active nav-block" aria-current="page" >Admin</a>
+                <a th:if="${userIsAdmin}" class="nav-link nav-block" id="userSelectBTN" href="#">User</a>
+<!--                <a th:if="${not userIsAdmin}" class="nav-link active nav-block" href="user">User</a>-->
             </nav>
         </div>
         <div class="col-10 bg-light">
