@@ -15,7 +15,7 @@ import java.util.List;
 public class UsersRestController {
 
 	private final UserServiceImp userServiceImp;
-	private final PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder; // Поместил сюда, т.к. иначе была ошибка: The dependencies of some of the beans in the application context form a cycle
 
 	public UsersRestController(UserServiceImp userServiceImp, PasswordEncoder passwordEncoder) {
 		this.userServiceImp = userServiceImp;
@@ -58,7 +58,11 @@ public class UsersRestController {
 			updatedUser.addRoleForm(new Role(2L, "ROLE_USER"));
 			updatedUser.setRole("USER");
 		}
-		updatedUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+		String oldPassword = updatedUser.getPassword();
+		// Условие - костыль, чтобы не шифровать уже зашифрованный пароль (который не менялся в форме)
+		if (!oldPassword.startsWith("$2a$10$")) {
+			updatedUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+		}
 		userServiceImp.updateUser(updatedUser.getId(), updatedUser);
 		return updatedUser;
 	}
