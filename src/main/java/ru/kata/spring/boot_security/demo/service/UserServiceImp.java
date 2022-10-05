@@ -21,7 +21,6 @@ public class UserServiceImp implements UserService {
       this.userDaoImp = userDaoImp;
    }
 
-
    @Transactional
    @PreAuthorize("hasRole('ROLE_ADMIN')")
    public void addUser(User user) {
