@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import ru.kata.spring.boot_security.demo.model.Role;
@@ -14,9 +15,11 @@ import java.util.List;
 public class UsersRestController {
 
 	private final UserServiceImp userServiceImp;
+	private final PasswordEncoder passwordEncoder;
 
-	public UsersRestController(UserServiceImp userServiceImp) {
+	public UsersRestController(UserServiceImp userServiceImp, PasswordEncoder passwordEncoder) {
 		this.userServiceImp = userServiceImp;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@GetMapping(value = "/users")
@@ -34,6 +37,7 @@ public class UsersRestController {
 
 	@PostMapping("/users")
 	public User addNewUser(@RequestBody User newUser) {
+		newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 		userServiceImp.addUser(newUser);
 		return newUser;
 	}
@@ -54,7 +58,7 @@ public class UsersRestController {
 			updatedUser.addRoleForm(new Role(2L, "ROLE_USER"));
 			updatedUser.setRole("USER");
 		}
-
+		updatedUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
 		userServiceImp.updateUser(updatedUser.getId(), updatedUser);
 		return updatedUser;
 	}
