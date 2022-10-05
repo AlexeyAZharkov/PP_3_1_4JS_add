@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImp implements UserDetailsService {
+public class UserServiceImp implements UserService {
    private UserDao userDaoImp;
 
    public UserServiceImp(UserDao userDaoImp) {
