@@ -79,17 +79,18 @@ newUserFrm.addEventListener('submit', async (e) => {
     e.target.reset();
 });
 
-function test(obj) {
-    for (i = 0; i < 2; i ++) {
-        alert(obj.options[ i ].selected);
-    }
-}
+// function test(obj) {
+//     for (i = 0; i < 2; i ++) {
+//         alert(obj.options[ i ].selected);
+//     }
+// }
 
 userList.addEventListener('click', (e) => {
     let delButton = e.target.id === 'delUser';
     let editButton = e.target.id === 'editUser';
     let userId = e.target.dataset.userid;
-    let userRole = e.target.dataset.userrole;
+    let userRoles = e.target.dataset.userrole;
+    console.log("userRole " + userId + " - " + getRoleById(userId));
 
     if (delButton) {
         fetch(`${url}/${userId}`)
@@ -163,7 +164,7 @@ userList.addEventListener('click', (e) => {
                     </select>
                 </div>       `
             });
-        editUser(userId, userRole);
+        editUser(userId, userRoles);
     }
 });
 
@@ -207,6 +208,16 @@ function editUser(id, role) {
     });
 }
 
+function getRoleById(id) {
+    let role;
+    fetch(`${url}/${id}`)
+        .then(response => response.json())
+        .then(user => {
+            role = user.role;
+        });
+    return role;
+}
+
 function showAllUsers() {
     let output = ``;
     fetch(url)
@@ -220,8 +231,8 @@ function showAllUsers() {
                     <td>${user.lastName}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>
-                    <td>${user.stringRoles}</td>
-                    <td><a type="button" class="btn btn-info" data-bs-toggle="modal" id="editUser" data-userrole=${user.stringRoles} data-userid=${user.id} data-bs-target="#edit">Edit</a></td>
+                    <td>${user.role}</td>
+                    <td><a type="button" class="btn btn-info" data-bs-toggle="modal" id="editUser" data-userrole=${user.role} data-userid=${user.id} data-bs-target="#edit">Edit</a></td>
                     <td><a type="button" class="btn btn-danger" data-bs-toggle="modal" id="delUser" data-uFN=${user.firstName} data-userid=${user.id} data-bs-target="#del">Delete</a></td>
                     </tr>
                 `;
@@ -242,7 +253,7 @@ function showUserData() {
                     <td>${user.lastName}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>
-                    <td>${user.stringRoles}</td>         
+                    <td>${user.role}</td>         
                     </tr>
                 `;
             });
