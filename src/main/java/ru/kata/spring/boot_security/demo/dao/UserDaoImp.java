@@ -16,7 +16,9 @@ public class UserDaoImp implements UserDao {
     @Override
     public void addUser(User user) {
         if (user.getRole().equals("ADMIN USER")) {
-            user.addRoleForm(new Role(1L, "ROLE_ADMIN"));
+            user.addRole(new Role(1L, "ROLE_ADMIN"));
+            user.addRole(new Role(2L, "ROLE_USER"));
+            user.setRole("ADMIN USER");
         } else if (user.getRole().equals("ADMIN")) {
             user.addRoleForm(new Role(1L, "ROLE_ADMIN"));
         } else if (user.getRole().equals("USER")) {
@@ -66,7 +68,11 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public List<User> listUsers() {
-        return entityManager.createQuery("select u from User u", User.class).getResultList();
+        List<User> allUsers = entityManager.createQuery("select u from User u", User.class).getResultList();
+        for (User user : allUsers) {
+            user.setRole(user.getStringRoles());
+        }
+        return allUsers;
     }
 
 }

@@ -56,7 +56,7 @@ newUserFrm.addEventListener('submit', async (e) => {
     // console.log(newUserFrm.userRole.selectedIndex);
     // console.log(newUserFrm.userRole.multiple);
     // console.log(newUserFrm.userRole.options[sel].text);
-    console.log(roles);
+    // console.log(roles);
     await fetch(url, {
         method: 'POST',
         headers: {
@@ -170,7 +170,7 @@ userList.addEventListener('click', (e) => {
 function delUserById(id) {
     delUserFrm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        console.log(id);
+        // console.log(id);
         await fetch(`${url}/${id}`, {
             method: 'DELETE',
         });
@@ -181,6 +181,7 @@ function delUserById(id) {
 
 function editUser(id, role) {
     let roleToSend = role;
+    console.log("Edit role = " + role);
     editUserFrm.addEventListener('submit', async (e) => {
         e.preventDefault();
         if (editUserFrm.userErole.value !== '') {

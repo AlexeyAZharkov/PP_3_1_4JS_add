@@ -78,6 +78,7 @@ public class User implements UserDetails {
       for (Role n : roles) {
          list.add(n.getName().replace("ROLE_", ""));
       }
+      Collections.sort(list);
       return String.join(" ", list);
    }
 
