@@ -37,12 +37,26 @@ document.getElementById('adminSelectBTN').onclick = function (e) {
 }
 
 showAllUsers();
-
+/**
+ * New user
+ */
 let newUserFrm = document.forms.reg;
-
 newUserFrm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    console.log(newUserFrm.userFN.value)
+    let roles = newUserFrm.userRole.options;
+    if (roles[0].selected && roles[1].selected) {
+        roles = roles[0].text + " " + roles[1].text;
+    } else {
+        roles = newUserFrm.userRole.value
+    }
+    // for (i = 0; i < 2; i ++) {
+    //     alert(obj.options[ i ].selected);
+    // }
+    // let sel = newUserFrm.userRole.selectedIndex;
+    // console.log(newUserFrm.userRole.selectedIndex);
+    // console.log(newUserFrm.userRole.multiple);
+    // console.log(newUserFrm.userRole.options[sel].text);
+    console.log(roles);
     await fetch(url, {
         method: 'POST',
         headers: {
@@ -54,7 +68,7 @@ newUserFrm.addEventListener('submit', async (e) => {
             age: newUserFrm.userAge.value,
             email: newUserFrm.userEm.value,
             password: newUserFrm.userPas.value,
-            role: newUserFrm.userRole.value,
+            role: roles,
         })
     });
     showAllUsers();
@@ -64,6 +78,12 @@ newUserFrm.addEventListener('submit', async (e) => {
     document.getElementById('nav-home-tab').setAttribute('class', 'nav-link active');
     e.target.reset();
 });
+
+function test(obj) {
+    for (i = 0; i < 2; i ++) {
+        alert(obj.options[ i ].selected);
+    }
+}
 
 userList.addEventListener('click', (e) => {
     let delButton = e.target.id === 'delUser';
